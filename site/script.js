@@ -1,0 +1,12 @@
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+addEventListener('scroll',()=>{const h=document.documentElement;
+document.getElementById('bar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+document.getElementById('nav').classList.toggle('s',h.scrollTop>20);
+document.querySelectorAll('.orb').forEach((o,i)=>o.style.marginTop=(h.scrollTop*(.05+i*.04))+'px')},{passive:true});
+const t=document.getElementById('tilt'),s=t.firstElementChild;
+t.addEventListener('mousemove',e=>{const r=t.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;s.style.transform=`rotateY(${x*12}deg) rotateX(${-y*12}deg)`});
+t.addEventListener('mouseleave',()=>s.style.transform='');
+const dl=document.getElementById('dl'),l=dl.querySelector('.lbl');
+dl.addEventListener('click',()=>{dl.classList.remove('go');void dl.offsetWidth;dl.classList.add('go');l.textContent='İNDİRİLİYOR...';
+setTimeout(()=>l.textContent='İNDİRİLDİ ✓',2200);setTimeout(()=>{l.textContent='İNDİR';dl.classList.remove('go')},4500)});
